@@ -1,7 +1,7 @@
 # Python
 from typing import List
 # FastAPI
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, status
 # Pony
 from pony.orm import select, db_session
 # Models
@@ -15,16 +15,12 @@ from utils import crypt, auth
 router = APIRouter(prefix='/v1/user', tags=['user'])
 
 
-def get_currenct_user(request: Request) -> User:
-    authorization = request.headers['Authorization']
-    return auth.validate_access_token(authorization)
-
 @router.get(
     path='',
     description="Retrieve all users registered",
     response_model=List[UserResponse]
 )
-def list_users(current_user: User = Depends(get_currenct_user)):
+def list_users(current_user: User = Depends(auth.get_current_user)):
     """Retrieve all users.
 
     Args:
