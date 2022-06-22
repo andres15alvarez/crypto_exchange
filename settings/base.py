@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 ENV = os.environ.get('ENV' 'development')
-DEBUG = eval(os.environ.get('DEBUG', 'True'))
+DEBUG = ENV == 'production'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 PORT = int(os.environ.get('PORT', '5000'))
 
