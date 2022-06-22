@@ -1,4 +1,5 @@
 from datetime import datetime
+from fastapi import Request
 # Pony
 from pony.orm import db_session
 from jose import ExpiredSignatureError, JWTError, jwt
@@ -67,3 +68,15 @@ def validate_access_token(token: str) -> User:
             return User.get(email=data.get('sub'))
         except User.ObjectNotFound:
             raise AuthError('Invalid token')
+
+def get_current_user(request: Request) -> User:
+    """Get the user object from the authorization token.
+
+    Args:
+        - request (Request): object.
+
+    Returns:
+        - User: user instance
+    """
+    authorization = request.headers['Authorization']
+    return validate_access_token(authorization)
