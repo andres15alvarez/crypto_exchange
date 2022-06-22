@@ -10,7 +10,7 @@ dotenv.load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENV = os.environ.get('APP_ENV' 'development')
+ENV = os.environ.get('ENV', 'development')
 DEBUG = ENV == 'production'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 PORT = int(os.environ.get('PORT', '5000'))
