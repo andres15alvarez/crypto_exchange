@@ -3,13 +3,13 @@ from fastapi.requests import Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from routers.home import home_router
-from routers.user import user_list_router
+from routers.user import user_list_router, user_detail_router
 from routers.auth import auth_router
-from utils.auth import AuthError
+from exceptions.auth import AuthError
 
 
 app = FastAPI(
-    title="CryptoMarket",
+    title="CryptoExchange",
     description="API for crypto exchange",
     version="0.1.0"
 )
@@ -29,4 +29,5 @@ def handle_auth_error(request: Request, exc: AuthError):
 
 app.include_router(home_router)
 app.include_router(user_list_router)
+app.include_router(user_detail_router)
 app.include_router(auth_router)
