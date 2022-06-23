@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Tuple
 from fastapi import Request
 # Pony
 from pony.orm import db_session
@@ -7,15 +8,14 @@ from jose import ExpiredSignatureError, JWTError, jwt
 from settings import JWT_LIFE_TIME, JWT_ALGORITHM, SECRET_KEY
 # Models
 from models import User
+# Exceptions
+from exceptions.auth import AuthError
+from exceptions.not_found import UserNotFound
 # Utils
 from utils import crypt
 
 
-class AuthError(Exception):
-    """Authentication error"""
-
-
-def verify_login_user(email: str, password: str) -> bool:
+def verify_login_user(email: str, password: str) -> Tuple[bool, User]:
     """Verify is the credentials are valid.
 
     Args:
@@ -24,10 +24,15 @@ def verify_login_user(email: str, password: str) -> bool:
 
     Returns:
         - bool: if the credentials are valid.
+        - User: user instance
     """
     with db_session:
         user = User.get(email=email)
-        return crypt.verify_password(password, user.password)
+        if user is None:
+            raise UserNotFound("User not found")
+        if not user.active:
+            raise AuthError("User is not active")
+        return crypt.verify_password(password, user.password), user
 
 
 def create_access_token(email: str) -> str:
@@ -78,5 +83,7 @@ def get_current_user(request: Request) -> User:
     Returns:
         - User: user instance
     """
+    if 'Authorization' not in request.headers:
+        raise AuthError('Authorization is required')
     authorization = request.headers['Authorization']
     return validate_access_token(authorization)
