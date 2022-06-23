@@ -30,3 +30,5 @@ TIME_ZONE = os.environ.get('TIME_ZONE', 'UTC')
 # JWT
 JWT_LIFE_TIME = timedelta(hours=int(os.environ.get('JWT_LIFE_TIME', 24)))
 JWT_ALGORITHM = os.environ.get('JWT_ALGORITHM', 'HS256')
+
+COIN_API_KEY = os.environ.get('COIN_API_KEY', '')
