@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from models.user import User
 
 from schemas.rate import ExchangeRate
