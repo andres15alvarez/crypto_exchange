@@ -15,28 +15,6 @@ from utils import crypt, auth
 router = APIRouter(prefix='/v1/user', tags=['user'])
 
 
-@router.get(
-    path='',
-    description="Retrieve all users registered",
-    response_model=List[UserResponse]
-)
-def list_users(current_user: User = Depends(auth.get_current_user)):
-    """Retrieve all users.
-
-    Args:
-
-    Returns:
-    - list: users. With the following structure:
-        - email: EmailStr
-        - first_name: str
-        - last_name: str
-        - active: bool
-    """
-    with db_session:
-        users = select(user for user in User)
-        return [UserResponse(**user.to_dict()) for user in users]
-
-
 @router.post(
     path='',
     description="Create a new user",
