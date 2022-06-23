@@ -15,7 +15,8 @@ class LoginRequest(BaseModel):
 
 
 class LoginResponse(BaseModel):
-    token: str
+    token: str = Field(description="JWT to authenticate in requests")
+    id: int = Field(description="User id")
 
     class Config:
         schema_extra = {
@@ -23,6 +24,7 @@ class LoginResponse(BaseModel):
                 'token': ('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
                 '.eyJzdWIiOiJhbmRyZXMxNWFsdmFyZXpAZ21haWwuY29tIiwiZXhwIjoxNjUyMDI1NDIwfQ'
                 '.rNyO6fAq1Bzj2DkhYGQhLbI00S1QUuXWz294orNnwb0'
-                )
+                ),
+                'id': 1
             }
         }
