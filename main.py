@@ -5,6 +5,7 @@ from fastapi.exceptions import RequestValidationError
 from routers.home import home_router
 from routers.user import user_list_router, user_detail_router
 from routers.auth import auth_router
+from routers.exchange import exchange_rate_router
 from exceptions.auth import AuthError
 
 
@@ -31,3 +32,4 @@ app.include_router(home_router)
 app.include_router(user_list_router)
 app.include_router(user_detail_router)
 app.include_router(auth_router)
+app.include_router(exchange_rate_router)
