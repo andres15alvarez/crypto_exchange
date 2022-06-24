@@ -24,10 +24,10 @@ jobs:
           python -m pip install black pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # - name: Linting
-      #   run: |
-      #     black src
-      #     black --check src
+      - name: Linting
+        run: |
+          black .
+          black --check .
 
       - name: Testing
         run: pytest
