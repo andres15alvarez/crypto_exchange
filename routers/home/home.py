@@ -6,6 +6,6 @@ import settings
 router = APIRouter()
 
 
-@router.get('/', tags=['home'], description='home endpoint')
+@router.get("/", tags=["home"], description="home endpoint")
 def home():
-    return {'environment': settings.ENV}
+    return {"environment": settings.ENV}

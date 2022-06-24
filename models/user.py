@@ -4,7 +4,7 @@ from utils.database import db
 
 
 class User(db.Entity):
-    __table__ = 'user'
+    __table__ = "user"
 
     active = orm.Required(bool, default=True)
     first_name = orm.Optional(str, max_len=50)

@@ -10,9 +10,7 @@ from exceptions.auth import AuthError
 
 
 app = FastAPI(
-    title="CryptoExchange",
-    description="API for crypto exchange",
-    version="0.1.0"
+    title="CryptoExchange", description="API for crypto exchange", version="0.1.0"
 )
 
 
@@ -25,7 +23,7 @@ def handle_validation_error(request: Request, exc: RequestValidationError):
 
 @app.exception_handler(AuthError)
 def handle_auth_error(request: Request, exc: AuthError):
-    return JSONResponse({'detail': str(exc)}, status_code=status.HTTP_401_UNAUTHORIZED)
+    return JSONResponse({"detail": str(exc)}, status_code=status.HTTP_401_UNAUTHORIZED)
 
 
 app.include_router(home_router)

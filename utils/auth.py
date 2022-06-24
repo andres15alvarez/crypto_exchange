@@ -1,16 +1,21 @@
 from datetime import datetime
 from typing import Tuple
 from fastapi import Request
+
 # Pony
 from pony.orm import db_session
 from jose import ExpiredSignatureError, JWTError, jwt
+
 # Settings
 from settings import JWT_LIFE_TIME, JWT_ALGORITHM, SECRET_KEY
+
 # Models
 from models import User
+
 # Exceptions
 from exceptions.auth import AuthError
 from exceptions.not_found import UserNotFound
+
 # Utils
 from utils import crypt
 
@@ -44,7 +49,7 @@ def create_access_token(email: str) -> str:
     Returns:
         - str: bearer jwt
     """
-    data = {'sub': email, 'exp': datetime.utcnow() + JWT_LIFE_TIME}
+    data = {"sub": email, "exp": datetime.utcnow() + JWT_LIFE_TIME}
     return jwt.encode(data, SECRET_KEY, algorithm=JWT_ALGORITHM)
 
 
@@ -61,18 +66,19 @@ def validate_access_token(token: str) -> User:
     Returns:
         - User: object.
     """
-    parts = token.split(' ')
-    if parts[0] != 'Bearer':
-        raise AuthError('Invalid token')
+    parts = token.split(" ")
+    if parts[0] != "Bearer":
+        raise AuthError("Invalid token")
     try:
         data = jwt.decode(parts[1], SECRET_KEY, algorithms=JWT_ALGORITHM)
     except (JWTError, ExpiredSignatureError) as e:
         raise AuthError(str(e))
     with db_session:
         try:
-            return User.get(email=data.get('sub'))
+            return User.get(email=data.get("sub"))
         except User.ObjectNotFound:
-            raise AuthError('Invalid token')
+            raise AuthError("Invalid token")
+
 
 def get_current_user(request: Request) -> User:
     """Get the user object from the authorization token.
@@ -83,7 +89,7 @@ def get_current_user(request: Request) -> User:
     Returns:
         - User: user instance
     """
-    if 'Authorization' not in request.headers:
-        raise AuthError('Authorization is required')
-    authorization = request.headers['Authorization']
+    if "Authorization" not in request.headers:
+        raise AuthError("Authorization is required")
+    authorization = request.headers["Authorization"]
     return validate_access_token(authorization)

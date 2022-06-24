@@ -1,22 +1,26 @@
 # FastAPI
 from fastapi import APIRouter, Depends
+
 # Pony
 from pony.orm import db_session
+
 # Models
 from models import User
+
 # Schemas
 from schemas import UserResponse
+
 # Utils
 from utils import auth, permission
 
 
-router = APIRouter(prefix='/v1/user', tags=['user'])
+router = APIRouter(prefix="/v1/user", tags=["user"])
 
 
 @router.get(
-    path='/{id:int}',
+    path="/{id:int}",
     description="Retrieve an user instance",
-    response_model=UserResponse
+    response_model=UserResponse,
 )
 def get_user(id: int, current_user: User = Depends(auth.get_current_user)):
     """Retrieve an user.
@@ -37,9 +41,7 @@ def get_user(id: int, current_user: User = Depends(auth.get_current_user)):
 
 
 @router.delete(
-    path='/{id:int}',
-    description="Delete an user",
-    response_model=UserResponse
+    path="/{id:int}", description="Delete an user", response_model=UserResponse
 )
 def delete_user(id: int, current_user: User = Depends(auth.get_current_user)):
     with db_session:

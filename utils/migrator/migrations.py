@@ -22,10 +22,15 @@ def check_migrations_completed(db: Database) -> List[str]:
     else:
         return [name[0] for name in cursor.fetchall()]
 
+
 def get_migrations_to_migrate(db: Database) -> List[str]:
     files = listdir(join(BASE_DIR, "models", "migrations"))
     files.remove("__init__.py")
     if "__pycache__" in files:
         files.remove("__pycache__")
-    files = [f.replace(".py", "") for f in files if f.replace(".py", "") not in check_migrations_completed(db)]
+    files = [
+        f.replace(".py", "")
+        for f in files
+        if f.replace(".py", "") not in check_migrations_completed(db)
+    ]
     return files

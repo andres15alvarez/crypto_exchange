@@ -6,14 +6,14 @@ from schemas.auth import LoginRequest, LoginResponse
 from utils import auth
 
 
-router = APIRouter(prefix='/v1/token', tags=['token'])
+router = APIRouter(prefix="/v1/token", tags=["token"])
 
 
 @router.post(
-    path='',
+    path="",
     response_model=LoginResponse,
     status_code=status.HTTP_201_CREATED,
-    description='Login and create token to made request'
+    description="Login and create token to made request",
 )
 def create_token(login: LoginRequest):
     """Login.
@@ -36,6 +36,8 @@ def create_token(login: LoginRequest):
     except UserNotFound as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     if not is_user_logged:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Invalid credentials')
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
+        )
     token = auth.create_access_token(login.email)
     return LoginResponse(token=token, id=user.id)

@@ -1,25 +1,30 @@
 # Python
 from typing import List
+
 # FastAPI
 from fastapi import APIRouter, Depends, status
+
 # Pony
 from pony.orm import select, db_session
+
 # Models
 from models import User
+
 # Schemas
 from schemas import UserResponse, UserRequest
+
 # Utils
 from utils import crypt, auth
 
 
-router = APIRouter(prefix='/v1/user', tags=['user'])
+router = APIRouter(prefix="/v1/user", tags=["user"])
 
 
 @router.post(
-    path='',
+    path="",
     description="Create a new user",
     response_model=UserResponse,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
 )
 def create_user(user: UserRequest):
     """Create a new user.

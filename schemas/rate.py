@@ -8,9 +8,5 @@ class ExchangeRate(BaseModel):
 
     class Config:
         schema_extra = {
-            'example': {
-                'from_currency': "BTC",
-                'to_currency': "ETH",
-                'rate': 20_000
-            }
+            "example": {"from_currency": "BTC", "to_currency": "ETH", "rate": 20_000}
         }

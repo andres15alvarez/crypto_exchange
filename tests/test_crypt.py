@@ -12,6 +12,7 @@ def test_verify_password_success():
     password = "holahola"
     assert crypt.verify_password(password, hashed_password)
 
+
 def test_verify_password_failure():
     hashed_password = "5819b005d5c142ae151889bcbe0872bbbdbeecc26c4785a48e65b04abd7a6926"
     wrong_password = "holoholo"

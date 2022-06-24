@@ -14,6 +14,7 @@ def check_migration_table(db: Database) -> bool:
         finally:
             return True
 
+
 def create_migration_table(db: Database):
     with db_session:
         query = """
@@ -25,6 +26,7 @@ def create_migration_table(db: Database):
             );
         """
         db.execute(query)
+
 
 def save_migration(db: Database, name: str):
     with db_session:
