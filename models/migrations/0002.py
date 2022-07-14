@@ -1,6 +1,4 @@
-import psycopg2
 from pony.orm import Database
-import settings
 import utils.database as database
 
 
