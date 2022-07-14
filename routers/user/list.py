@@ -1,11 +1,8 @@
-# Python
-from typing import List
-
 # FastAPI
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, status
 
 # Pony
-from pony.orm import select, db_session
+from pony.orm import db_session
 
 # Models
 from models import User
@@ -14,7 +11,7 @@ from models import User
 from schemas import UserResponse, UserRequest
 
 # Utils
-from utils import crypt, auth
+from utils import crypt
 
 
 router = APIRouter(prefix="/v1/user", tags=["user"])
