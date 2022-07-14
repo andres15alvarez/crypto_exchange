@@ -12,5 +12,6 @@ class User(db.Entity):
     email = orm.Required(str, max_len=255, unique=True)
     password = orm.Optional(str, max_len=255)
     created_at = orm.Required(datetime, default=datetime.now)
+    transactions = orm.Set("Transaction")
     # updated_at = orm.Required(datetime, default=datetime.now)
     # deleted_at = orm.Optional(datetime)
