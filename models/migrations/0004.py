@@ -11,6 +11,7 @@ def migrate(db: Database):
             from_currency_id integer NOT NULL,
             to_currency_id integer NOT NULL,
             exchange_rate numeric(20, 10) NOT NULL,
+            quantity numeric(20, 10) NOT NULL,
             created_at timestamp,
             CONSTRAINT transaction_pkey PRIMARY KEY (id),
             CONSTRAINT transaction_from_currency_fkey FOREIGN KEY (from_currency_id) REFERENCES public."currency"(id)
