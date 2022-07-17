@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class CurrencyResponse(BaseModel):
+class CurrencySchema(BaseModel):
     name: str = Field(description="Cryptocurrency name")
     symbol: str = Field(description="Cryptocurrency symbol")
 

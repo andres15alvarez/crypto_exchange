@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from pydantic import BaseModel, Field, validator
 from models.currency import Currency
-from schemas.currency import CurrencyResponse
+from schemas.currency import CurrencySchema
 
 
 class TransactionRequest(BaseModel):
@@ -22,8 +22,8 @@ class TransactionRequest(BaseModel):
 
 class TransactionResponse(TransactionRequest):
     exchange_rate: Decimal = Field(description="Exchange rate")
-    from_currency: CurrencyResponse = Field(description="Currency exchanged")
-    to_currency: CurrencyResponse = Field(description="Currency received")
+    from_currency: CurrencySchema = Field(description="Currency exchanged")
+    to_currency: CurrencySchema = Field(description="Currency received")
     created_at: datetime = Field(description="Datetime when the transaction was made")
 
     class Config:
