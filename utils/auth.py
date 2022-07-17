@@ -75,9 +75,12 @@ def validate_access_token(token: str) -> User:
         raise AuthError(str(e))
     with db_session:
         try:
-            return User.get(email=data.get("sub"))
+            user = User.get(email=data.get("sub"))
         except User.ObjectNotFound:
             raise AuthError("Invalid token")
+        if user is None:
+                raise AuthError("Invalid token")
+        return user
 
 
 def get_current_user(request: Request) -> User:
