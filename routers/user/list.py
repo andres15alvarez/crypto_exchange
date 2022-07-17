@@ -43,5 +43,5 @@ def create_user(user: UserRequest):
     """
     user.password = crypt.hash_password(user.password)
     with db_session:
-        User(**user.dict())
-        return user
+        user = User(**user.dict())
+        return UserResponse(**user.to_dict())
