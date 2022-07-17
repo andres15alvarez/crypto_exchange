@@ -39,6 +39,7 @@ def create_user(user: UserRequest):
         - first_name: str
         - last_name: str
         - active: bool
+        - created_at: datetime
     """
     user.password = crypt.hash_password(user.password)
     with db_session:
