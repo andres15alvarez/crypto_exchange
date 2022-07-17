@@ -17,7 +17,6 @@ router = APIRouter(prefix="/v1/exchange", tags=["token"])
 def get_exchange_rate(
     from_currency: str,
     to_currency: str,
-    current_user: User = Depends(auth.get_current_user),
 ):
     response = coin_api.exchange_rates_get_specific_rate(from_currency, to_currency)
     return ExchangeRate(
