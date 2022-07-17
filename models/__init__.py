@@ -1,4 +1,6 @@
 from .user import User
+from .currency import Currency
+from .transaction import Transaction
 from utils.database import db
 
 
