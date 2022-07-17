@@ -15,7 +15,7 @@ class TransactionRequest(BaseModel):
             "example": {
                 "from_currency": "USD",
                 "to_currency": "BTC",
-                "quantity": 20_000.00
+                "quantity": 20_000.00,
             }
         }
 
@@ -29,14 +29,8 @@ class TransactionResponse(TransactionRequest):
     class Config:
         schema_extra = {
             "example": {
-                "from_currency": {
-                    "name": "dolar",
-                    "symbol": "USD"
-                },
-                "to_currency": {
-                    "name": "bitcoin",
-                    "symbol": "BTC"
-                },
+                "from_currency": {"name": "dolar", "symbol": "USD"},
+                "to_currency": {"name": "bitcoin", "symbol": "BTC"},
                 "quantity": 20_000.00,
                 "exchange_rate": 0.00005,
                 "created_at": "2022-07-17T12:44:33.137017",

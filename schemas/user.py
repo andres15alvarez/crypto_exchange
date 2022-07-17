@@ -18,6 +18,7 @@ class UserBase(BaseModel):
             }
         }
 
+
 class UserResponse(UserBase):
     created_at: datetime = Field(description="Datetime when object was created")
 

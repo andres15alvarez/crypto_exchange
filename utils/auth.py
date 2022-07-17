@@ -79,7 +79,7 @@ def validate_access_token(token: str) -> User:
         except User.ObjectNotFound:
             raise AuthError("Invalid token")
         if user is None:
-                raise AuthError("Invalid token")
+            raise AuthError("Invalid token")
         return user
 
 

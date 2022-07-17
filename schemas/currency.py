@@ -6,6 +6,4 @@ class CurrencyResponse(BaseModel):
     symbol: str = Field(description="Cryptocurrency symbol")
 
     class Config:
-        schema_extra = {
-            "example": {"symbol": "BTC", "name": "bitcoin"}
-        }
+        schema_extra = {"example": {"symbol": "BTC", "name": "bitcoin"}}

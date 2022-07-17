@@ -20,11 +20,10 @@ router = APIRouter(prefix="/v1/transaction", tags=["transaction"])
     path="",
     description="Create a new exchange transaction",
     response_model=TransactionResponse,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
 )
 def create_transaction(
-    transaction: TransactionRequest,
-    current_user: User = Depends(auth.get_current_user)
+    transaction: TransactionRequest, current_user: User = Depends(auth.get_current_user)
 ):
     with db_session:
         from_currency = Currency.get(symbol=transaction.from_currency)
@@ -32,13 +31,10 @@ def create_transaction(
         transaction.from_currency = from_currency.id
         transaction.to_currency = to_currency.id
         exchange_rate = coin_api.exchange_rates_get_specific_rate(
-            from_currency.symbol,
-            to_currency.symbol
+            from_currency.symbol, to_currency.symbol
         )["rate"]
         transaction_created = Transaction(
-            **transaction.dict(),
-            user=current_user.id,
-            exchange_rate=exchange_rate
+            **transaction.dict(), user=current_user.id, exchange_rate=exchange_rate
         )
         return TransactionResponse(**transaction_created.to_dict())
 
@@ -47,7 +43,7 @@ def create_transaction(
     path="",
     description="Retrieve all transactions made by the user.",
     response_model=List[TransactionResponse],
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
 )
 def list_transactions(current_user: User = Depends(auth.get_current_user)):
     with db_session:
