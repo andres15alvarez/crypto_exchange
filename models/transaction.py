@@ -13,4 +13,5 @@ class Transaction(db.Entity):
     from_currency = orm.Required(Currency, reverse="from_transactions")
     to_currency = orm.Required(Currency, reverse="to_transactions")
     exchange_rate = orm.Required(Decimal, precision=20, scale=10)
+    quantity = orm.Required(Decimal, precision=20, scale=10)
     created_at = orm.Required(datetime, default=datetime.now)
