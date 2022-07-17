@@ -4,7 +4,7 @@ from typing import List
 from pony.orm import Database, db_session
 from pony.orm.dbapiprovider import ProgrammingError
 from settings import BASE_DIR
-from .migration_table import check_migration_table, create_migration_table
+from .migration_table import create_migration_table
 
 
 def check_migrations_completed(db: Database) -> List[str]:
@@ -33,4 +33,5 @@ def get_migrations_to_migrate(db: Database) -> List[str]:
         for f in files
         if f.replace(".py", "") not in check_migrations_completed(db)
     ]
+    files.sort()
     return files
