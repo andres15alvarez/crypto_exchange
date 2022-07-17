@@ -4,7 +4,7 @@ from utils.database import db
 
 
 class User(db.Entity):
-    __table__ = "user"
+    _table_ = "user"
 
     active = orm.Required(bool, default=True)
     first_name = orm.Optional(str, max_len=50)
@@ -13,5 +13,3 @@ class User(db.Entity):
     password = orm.Optional(str, max_len=255)
     created_at = orm.Required(datetime, default=datetime.now)
     transactions = orm.Set("Transaction")
-    # updated_at = orm.Required(datetime, default=datetime.now)
-    # deleted_at = orm.Optional(datetime)

@@ -7,7 +7,7 @@ from utils.database import db
 
 
 class Transaction(db.Entity):
-    __table__ = "transaction"
+    _table_ = "transaction"
 
     user = orm.Required(User)
     from_currency = orm.Required(Currency, reverse="from_transactions")
