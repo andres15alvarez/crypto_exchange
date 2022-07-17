@@ -14,6 +14,7 @@ def migrate(db: Database):
     """
 
     db.execute(query)
+    db.commit()
 
 
 if __name__ == "__main__":
