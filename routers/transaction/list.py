@@ -1,13 +1,10 @@
 # FastAPI
 from typing import List
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
 # Pony
 from pony.orm import db_session, select
-from models.currency import Currency
-from models.transaction import Transaction
-
-from models.user import User
+from models import User, Transaction, Currency, Account
 from schemas.transaction import TransactionRequest, TransactionResponse
 from utils import auth
 from utils.coin_api import coin_api
@@ -33,9 +30,27 @@ def create_transaction(
         exchange_rate = coin_api.exchange_rates_get_specific_rate(
             from_currency.symbol, to_currency.symbol
         )["rate"]
+        account_from_currency = Account.get(user=current_user, currency=from_currency)
+        if account_from_currency is None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT, detail="Balance insufficient"
+            )
+        if account_from_currency.amount < transaction.quantity:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT, detail="Balance insufficient"
+            )
         transaction_created = Transaction(
             **transaction.dict(), user=current_user.id, exchange_rate=exchange_rate
         )
+        account = Account.get(user=current_user, currency=to_currency)
+        if account is None:
+            Account(
+                user=current_user,
+                currency=to_currency,
+                amount=exchange_rate * transaction_created.quantity,
+            )
+        else:
+            account.amount += exchange_rate * transaction_created.quantity
         return TransactionResponse(**transaction_created.to_dict())
 
 
