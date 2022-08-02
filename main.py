@@ -8,6 +8,7 @@ from routers.auth import auth_router
 from routers.exchange import exchange_rate_router
 from routers.currency import currency_router
 from routers.transaction import transaction_list_router
+from routers.account import account_list_router
 from exceptions.auth import AuthError
 
 
@@ -35,3 +36,4 @@ app.include_router(auth_router)
 app.include_router(exchange_rate_router)
 app.include_router(currency_router)
 app.include_router(transaction_list_router)
+app.include_router(account_list_router)
