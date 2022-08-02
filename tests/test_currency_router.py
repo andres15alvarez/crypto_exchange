@@ -7,8 +7,7 @@ from main import app
 client = TestClient(app)
 
 
-def test_list_currencies(mocker, db_session):
-    mocker.patch("routers.currency.list.db_session", return_value=db_session)
+def test_list_currencies(mocker):
     mocker.patch.object(Currency, "to_dict", return_value={"name": "bitcoin", "symbol": "BTC"})
     mocker.patch("routers.currency.list.select", return_value=[Currency])
     response = client.get("/v1/currency")
