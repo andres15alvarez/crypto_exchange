@@ -1,7 +1,7 @@
 from pony import orm
 import settings
 
-if settings.ENV != 'testing':
+if settings.ENV != "testing":
     db = orm.Database(
         provider="postgres",
         user=settings.DATABASE_USER,
@@ -10,8 +10,4 @@ if settings.ENV != 'testing':
         database=settings.DATABASE_NAME,
     )
 else:
-    db = orm.Database(
-        provider="sqlite",
-        filename=":memory:",
-        create_db=True
-    )
+    db = orm.Database(provider="sqlite", filename=":memory:", create_db=True)
