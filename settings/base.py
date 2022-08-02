@@ -10,8 +10,8 @@ dotenv.load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-ENV = os.environ.get("ENV", "development")
-DEBUG = ENV == "production"
+ENV = os.environ.get("ENV", "testing")
+DEBUG = ENV != "production"
 SECRET_KEY = os.environ.get(
     "SECRET_KEY", "8f96a1f8ddd71d3a18d71a7a1b5c518ea806e4d6d8d6641c4a4e414d222034cf"
 )
