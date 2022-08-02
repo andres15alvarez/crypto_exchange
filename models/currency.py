@@ -9,3 +9,4 @@ class Currency(db.Entity):
     symbol = orm.Required(str, max_len=10, unique=True)
     from_transactions = orm.Set("Transaction", reverse="from_currency")
     to_transactions = orm.Set("Transaction", reverse="to_currency")
+    accounts = orm.Set("Account")
