@@ -6,7 +6,7 @@ from utils import auth
 from utils.coin_api import coin_api
 
 
-router = APIRouter(prefix="/v1/exchange", tags=["token"])
+router = APIRouter(prefix="/v1/exchange", tags=["exchange"])
 
 
 @router.get(
