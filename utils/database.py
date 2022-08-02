@@ -1,7 +1,7 @@
 from pony import orm
 import settings
 
-if settings.ENV != 'test':
+if settings.ENV != 'testing':
     db = orm.Database(
         provider="postgres",
         user=settings.DATABASE_USER,
